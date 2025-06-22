@@ -1,8 +1,25 @@
 import axios from 'axios';
+import { AuthEndpoints } from './endpoints';
 
-export const register = async (name: string, email: string, password: string) => {
+export const register = async (
+  username: string,
+  phone_number: string,
+  first_name: string,
+  last_name: string,
+  email: string,
+  password: string,
+  re_password: string
+) => {
   try {
-    const response = await axios.post('/api/auth/register', { name, email, password });
+    const response = await axios.post(AuthEndpoints.Register, {
+      username,
+      phone_number,
+      first_name,
+      last_name,
+      email,
+      password,
+      re_password,
+    });
     return response.data;
   } catch (error) {
     if (error instanceof Error) {
@@ -14,7 +31,7 @@ export const register = async (name: string, email: string, password: string) =>
 
 export const login = async (email: string, password: string) => {
   try {
-    const response = await axios.post('/api/auth/login', { email, password });
+    const response = await axios.post(AuthEndpoints.TokenCreate, { email, password });
     return response.data;
   } catch (error) {
     if (error instanceof Error) {
